@@ -92,6 +92,7 @@ public class StdDrawDemo {
 			StdDraw.pause(1);
 			size -= 1;
 		}
+
 	}
 
 	public static void main(String[] args) {
