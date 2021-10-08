@@ -104,23 +104,4 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(setinel.next, index);
     }
 
-//    public static void main(String[] args){
-//        LinkedListDeque<Integer> t = new LinkedListDeque<>();
-//        t.addFirst(1);
-//        t.addFirst(2);
-//        t.addFirst(3);
-//        t.addFirst(4);
-//        t.addLast(6);
-//        t.addLast(7);
-//        t.addLast(8);
-//        System.out.println(t.isEmpty());
-//        System.out.println(t.size());
-//        t.printDeque();
-//        System.out.println(t.removeFirst());
-//        System.out.println(t.removeLast());
-//        t.printDeque();
-//        System.out.println(t.size());
-//        System.out.println(t.get(4));
-//        System.out.println(t.getRecursive(2));
-//    }
 }
