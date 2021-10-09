@@ -1,6 +1,6 @@
 public class LinkedListDeque<T> {
 
-    public class Node {
+    private class Node {
         public Node prev;
         public T item;
         public Node next;
@@ -21,16 +21,6 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque<T> other){
-        setinel = new Node(null, null, null);
-        setinel.prev = setinel;
-        setinel.next = setinel;
-        size = 0;
-        for(int i=0; i < other.size(); i++){
-            addLast(other.get(i));
-        }
-    }
-
     public void addFirst(T item){
         setinel.next.prev = new Node(item, setinel, setinel.next);
         setinel.next = setinel.next.prev;
@@ -48,6 +38,9 @@ public class LinkedListDeque<T> {
     }
 
     public int size(){
+        if(size < 0){
+            return 0;
+        }
         return size;
     }
 
@@ -88,7 +81,7 @@ public class LinkedListDeque<T> {
         return p.item;
     }
 
-    public T getRecursiveHelper(Node p, int i){
+    private T getRecursiveHelper(Node p, int i){
         if(i == 0){
             return p.item;
         }
