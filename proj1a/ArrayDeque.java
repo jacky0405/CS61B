@@ -124,9 +124,6 @@ public class ArrayDeque<T> {
 //        System.out.println(t.isEmpty());
 //        t.printDeque();
 //        System.out.println(t.get(0));
-
-
-
-    }
+//    }
 
 }
