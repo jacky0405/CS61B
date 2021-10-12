@@ -37,14 +37,4 @@ public class Palindrome {
         return true;
     }
 
-    public static void main(String[] args){
-        Palindrome t = new Palindrome();
-        boolean a = t.isPalindrome("cac");
-        System.out.println(a);
-
-        System.out.println('A'-'a');
-        System.out.println('a');
-
-
-    }
 }
