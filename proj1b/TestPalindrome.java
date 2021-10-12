@@ -18,17 +18,13 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome(){
-        String a = "cat";
-        String b = "aca";
-        String c = "a";
-        String d = null;
-        String e = "";
-        assertFalse(palindrome.isPalindrome(a));
-        assertTrue(palindrome.isPalindrome(b));
-        assertTrue(palindrome.isPalindrome(c));
-        assertTrue(palindrome.isPalindrome(d));
-        assertTrue(palindrome.isPalindrome(e));
+        assertTrue(palindrome.isPalindrome("racecar"));
+        assertTrue(palindrome.isPalindrome("a"));
+        assertFalse(palindrome.isPalindrome("dog"));
+        assertFalse(palindrome.isPalindrome("Aa"));
+        assertFalse(palindrome.isPalindrome("ab"));
     }
+
 
     @Test
     public void testIsPalindrome2(){
