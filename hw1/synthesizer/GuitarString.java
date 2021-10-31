@@ -1,5 +1,10 @@
 // TODO: Make sure to make this class a part of the synthesizer package
-//package <package name>;
+package synthesizer;
+
+import synthesizer.ArrayRingBuffer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //Make sure this class is public
 public class GuitarString {
@@ -18,6 +23,8 @@ public class GuitarString {
         //       cast the result of this divsion operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
+        int capacity = (int) Math.round(SR / frequency);
+        this.buffer = new ArrayRingBuffer(capacity);
     }
 
 
@@ -26,8 +33,27 @@ public class GuitarString {
         // TODO: Dequeue everything in the buffer, and replace it with random numbers
         //       between -0.5 and 0.5. You can get such a number by using:
         //       double r = Math.random() - 0.5;
-        //
         //       Make sure that your random numbers are different from each other.
+        List<Double> tempList = new ArrayList();
+        int count = buffer.capacity();
+        while(count > 0) {
+            double r = Math.random() - 0.5;
+            if(!tempList.contains(r)){
+                tempList.add(r);
+            }
+            count--;
+        }
+        if(buffer.fillCount() == 0){
+            for(double x : tempList){
+                buffer.enqueue(x);
+            }
+        } else {
+            for(double x : tempList){
+                buffer.dequeue();
+                buffer.enqueue(x);
+            }
+        }
+
     }
 
     /* Advance the simulation one time step by performing one iteration of
@@ -37,11 +63,15 @@ public class GuitarString {
         // TODO: Dequeue the front sample and enqueue a new sample that is
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
+        double oldest = buffer.dequeue();
+        double second = buffer.peek();
+        double newValue = (oldest+second)/2 * DECAY;
+        buffer.enqueue(newValue);
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
         // TODO: Return the correct thing.
-        return 0;
+        return buffer.peek();
     }
 }
