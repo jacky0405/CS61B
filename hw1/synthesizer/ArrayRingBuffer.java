@@ -2,6 +2,7 @@
 package synthesizer;
 import synthesizer.AbstractBoundedQueue;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 //TODO: Make sure to make this class and all of its methods public
@@ -68,9 +69,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
-        if(isEmpty()){
-            throw new RuntimeException("Ring buffer underflow");
-        }
+
         return rb[first];
     }
 
@@ -98,5 +97,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             countNum += 1;
             return returnItem;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayRingBuffer{" +
+                "rb=" + Arrays.toString(rb) +
+                '}';
     }
 }
