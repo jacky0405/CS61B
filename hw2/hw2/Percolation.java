@@ -7,8 +7,9 @@ public class Percolation {
     private boolean[] grid;
     private int gridLength;
     private WeightedQuickUnionUF uf;
-    int top;
-    int bottom;
+    private WeightedQuickUnionUF uf2;
+    private int top;
+    private int bottom;
     private int numberOpen;
 
     public Percolation(int N) {                       // create N-by-N grid, with all sites initially blocked
@@ -22,14 +23,15 @@ public class Percolation {
         grid[top] = true;
         grid[bottom] = true;
         uf = new WeightedQuickUnionUF(N*N + 2);
+        uf2 = new WeightedQuickUnionUF(N*N + 1);
         numberOpen = 0;
     }
 
-    public int getSite(int row, int col) {
+    private int getSite(int row, int col) {
         return gridLength * row + (col + 1);
     }
 
-    public void validate(int row, int col) {
+    private void Pvalidate(int row, int col) {
         if(row < 0 || row > gridLength-1){
             throw new IndexOutOfBoundsException("Index is over");
         }
@@ -39,7 +41,7 @@ public class Percolation {
     }
 
     public void open(int row, int col) {             // open the site (row, col) if it is not open already
-        validate(row, col);
+        Pvalidate(row, col);
 
         int site = getSite(row, col);
         if(grid[site]){
@@ -51,6 +53,7 @@ public class Percolation {
         int up, down, left, right;
         if(row == 0) {
             uf.union(top, site);
+            uf2.union(top, site);
         } else if(row == gridLength-1) {
             uf.union(bottom, site);
         }
@@ -58,12 +61,14 @@ public class Percolation {
             up = getSite(row - 1, col);
             if (grid[up]) {
                 uf.union(up, site);
+                uf2.union(up, site);
             }
         }
         if(row < gridLength-1) {
             down = getSite(row + 1, col);
             if (grid[down]) {
                 uf.union(down, site);
+                uf2.union(down, site);
             }
         }
 
@@ -71,31 +76,35 @@ public class Percolation {
             right = getSite(row, col+1);
             if(grid[right]) {
                 uf.union(right, site);
+                uf2.union(right, site);
             }
         } else if(col == gridLength-1) {
             left = getSite(row, col-1);
             if(grid[left]) {
                 uf.union(left, site);
+                uf2.union(left, site);
             }
         } else {
             right = getSite(row, col+1);
             left = getSite(row, col-1);
             if(grid[right]) {
                 uf.union(right, site);
+                uf2.union(right, site);
             }
             if(grid[left]) {
                 uf.union(left, site);
+                uf2.union(left, site);
             }
         }
 
     }
     public boolean isOpen(int row, int col) {        // is the site (row, col) open?
-        validate(row, col);
+        Pvalidate(row, col);
         return grid[getSite(row, col)];
     }
     public boolean isFull(int row, int col) {        // is the site (row, col) full?
-        validate(row, col);
-        return uf.connected(top, getSite(row, col));
+        Pvalidate(row, col);
+        return uf2.connected(top, getSite(row, col));
     }
     public int numberOfOpenSites() {                 // number of open sites
         return numberOpen;
