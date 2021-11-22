@@ -18,15 +18,13 @@ public class PercolationStats {
         experiments = new double[T];
         for(int i=0; i<T; i++){
             Percolation p =  pf.make(N);
-            count = 0;
 
             while(!p.percolates()) {
                 int row = StdRandom.uniform(N);
                 int col = StdRandom.uniform(N);
                 p.open(row, col);
-                count += 1;
             }
-            experiments[i] = (double)count / (double)(N*N);
+            experiments[i] = (double)p.numberOfOpenSites() / (double)(N*N);
         }
 
     }
@@ -49,7 +47,7 @@ public class PercolationStats {
     }
 
     public static void main(String[] args) {
-        PercolationStats a = new PercolationStats(200, 100, new PercolationFactory());
+        PercolationStats a = new PercolationStats(20, 100, new PercolationFactory());
         System.out.println(a.mean());
 
     }

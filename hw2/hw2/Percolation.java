@@ -50,6 +50,13 @@ public class Percolation {
         grid[site] = true;
         numberOpen += 1;
 
+        if(this.gridLength == 1) {
+            uf.union(top, site);
+            uf.union(bottom, site);
+            uf2.union(top, site);
+            return;
+        }
+
         int up, down, left, right;
         if(row == 0) {
             uf.union(top, site);
@@ -73,6 +80,7 @@ public class Percolation {
         }
 
         if(col == 0) {
+
             right = getSite(row, col+1);
             if(grid[right]) {
                 uf.union(right, site);
