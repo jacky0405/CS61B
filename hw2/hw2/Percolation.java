@@ -2,6 +2,7 @@ package hw2;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
+
 public class Percolation {
 
     private boolean[] grid;
@@ -12,18 +13,18 @@ public class Percolation {
     private int bottom;
     private int numberOpen;
 
-    public Percolation(int N) {                       // create N-by-N grid, with all sites initially blocked
-        if(N <= 0) {
+    public Percolation(int N) {
+        if (N <= 0) {
             throw new IllegalArgumentException("N should be positive");
         }
         gridLength = N;
-        grid = new boolean[N * N+2];
+        grid = new boolean[N * N + 2];
         top = 0;
         bottom = N * N + 1;
         grid[top] = true;
         grid[bottom] = true;
-        uf = new WeightedQuickUnionUF(N*N + 2);
-        uf2 = new WeightedQuickUnionUF(N*N + 1);
+        uf = new WeightedQuickUnionUF(N * N + 2);
+        uf2 = new WeightedQuickUnionUF(N * N + 1);
         numberOpen = 0;
     }
 
@@ -32,10 +33,10 @@ public class Percolation {
     }
 
     private void Pvalidate(int row, int col) {
-        if(row < 0 || row > gridLength-1){
+        if (row < 0 || row > gridLength - 1) {
             throw new IndexOutOfBoundsException("Index is over");
         }
-        if(col < 0 || col > gridLength-1){
+        if (col < 0 || col > gridLength - 1) {
             throw new IndexOutOfBoundsException("Index is over");
         }
     }
@@ -44,13 +45,13 @@ public class Percolation {
         Pvalidate(row, col);
 
         int site = getSite(row, col);
-        if(grid[site]){
+        if (grid[site]) {
             return;
         }
         grid[site] = true;
         numberOpen += 1;
 
-        if(this.gridLength == 1) {
+        if (this.gridLength == 1) {
             uf.union(top, site);
             uf.union(bottom, site);
             uf2.union(top, site);
@@ -58,20 +59,20 @@ public class Percolation {
         }
 
         int up, down, left, right;
-        if(row == 0) {
+        if (row == 0) {
             uf.union(top, site);
             uf2.union(top, site);
-        } else if(row == gridLength-1) {
+        } else if (row == gridLength-1) {
             uf.union(bottom, site);
         }
-        if(row > 0) {
+        if (row > 0) {
             up = getSite(row - 1, col);
             if (grid[up]) {
                 uf.union(up, site);
                 uf2.union(up, site);
             }
         }
-        if(row < gridLength-1) {
+        if (row < gridLength-1) {
             down = getSite(row + 1, col);
             if (grid[down]) {
                 uf.union(down, site);
@@ -79,27 +80,27 @@ public class Percolation {
             }
         }
 
-        if(col == 0) {
+        if (col == 0) {
 
             right = getSite(row, col+1);
-            if(grid[right]) {
+            if (grid[right]) {
                 uf.union(right, site);
                 uf2.union(right, site);
             }
-        } else if(col == gridLength-1) {
+        } else if (col == gridLength-1) {
             left = getSite(row, col-1);
-            if(grid[left]) {
+            if (grid[left]) {
                 uf.union(left, site);
                 uf2.union(left, site);
             }
         } else {
             right = getSite(row, col+1);
             left = getSite(row, col-1);
-            if(grid[right]) {
+            if (grid[right]) {
                 uf.union(right, site);
                 uf2.union(right, site);
             }
-            if(grid[left]) {
+            if (grid[left]) {
                 uf.union(left, site);
                 uf2.union(left, site);
             }
@@ -120,12 +121,5 @@ public class Percolation {
     public boolean percolates() {                    // does the system percolate?
         return uf.connected(top, bottom);
     }
-    public static void main(String[] args) {
-        Percolation percolation = new Percolation(3);
-        percolation.open(0, 1);
-        percolation.open(1, 1);
-        percolation.open(2, 1);
 
-        System.out.println("percolation is " + percolation.percolates());
-    }   // use for unit testing (not required)
 }
