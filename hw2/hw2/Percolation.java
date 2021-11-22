@@ -122,4 +122,7 @@ public class Percolation {
         return uf.connected(top, bottom);
     }
 
+    public static void main(String[] args) {
+
+    }
 }
