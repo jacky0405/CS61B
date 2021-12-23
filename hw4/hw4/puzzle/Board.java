@@ -157,4 +157,9 @@ public class Board implements WorldState {
         return res;
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
 }
