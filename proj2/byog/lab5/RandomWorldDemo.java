@@ -10,8 +10,8 @@ import java.util.Random;
  * Draws a world that contains RANDOM tiles.
  */
 public class RandomWorldDemo {
-    private static final int WIDTH = 50;
-    private static final int HEIGHT = 50;
+    private static final int WIDTH = 30;
+    private static final int HEIGHT = 30;
 
     private static final long SEED = 2873123;
     private static final Random RANDOM = new Random(SEED);
@@ -23,8 +23,8 @@ public class RandomWorldDemo {
     public static void fillWithRandomTiles(TETile[][] tiles) {
         int height = tiles[0].length;
         int width = tiles.length;
-        for (int x = 0; x < width; x += 1) {
-            for (int y = 0; y < height; y += 1) {
+        for (int x = 0; x < WIDTH; x += 1) {
+            for (int y = 0; y < HEIGHT; y += 1) {
                 tiles[x][y] = randomTile();
             }
         }
